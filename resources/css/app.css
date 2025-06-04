@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.radiostyle {
+    @apply bg-red-500 checked:bg-green-500 focus:bg-green-200 focus:ring-0 focus:text-green-500 hover:bg-green-200;
+}
+audio::-webkit-media-controls-panel {
+    background-color: white;
+}
+
+audio::-webkit-media-controls-mute-button {
+    background-color: white;
+}
+
+audio::-webkit-media-controls-play-button {
+    background-color: white;
+    color: white;
+}
+
+audio::-webkit-media-controls-timeline-container {
+    color: white;
+}
+
+audio::-webkit-media-controls-current-time-display {
+    color: white;
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+    color: white;
+}
+
+audio::-webkit-media-controls-timeline {
+    /* background-color: brown; */
+    color: white;
+}
+iframe #toolbar {
+    background-color: red;
+}
+::-webkit-scrollbar {
+    width: 1px; /* Width of the vertical scrollbar */
+    height: 4px; /* Height of the horizontal scrollbar */
+}
+
+/* For the scrollbar track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* For the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+    background: #140b914f;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* For the corner where both scrollbars meet */
+::-webkit-scrollbar-corner {
+    background: #ccc;
+}
+
+/* For scrollbar buttons (if any) */
+::-webkit-scrollbar-button {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    border-radius: 100%;
+    height: 15px;
+    width: 15px;
+    background-color: blueviolet;
+}

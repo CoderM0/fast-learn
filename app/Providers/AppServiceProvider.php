@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Providers;
+
+use App\Models\Course;
+use App\Models\Student;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        Vite::prefetch(concurrency: 3);
+
+        Gate::define('enrolled', function (User $user, $course) {
+            if (is_string($course)) {
+                $course = Course::with('students', 'teacher', 'teacher.user')->findOrFail($course);
+            }
+            return $course->students->contains($user->student) || $course->teacher->user_id == $user->id;
+        });
+    }
+}

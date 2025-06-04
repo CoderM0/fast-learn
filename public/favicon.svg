@@ -1,0 +1,28 @@
+<svg
+    width="2.5rem"
+    height="2.5rem"
+    viewBox="0 0 200 200"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <polygon
+        points="100,0 190,50 190,150 100,200 10,150 10,50"
+        stroke="white"
+        stroke-width="10"
+        fill="red"
+    />
+
+    <polygon
+        points="100,0 10,50 10,150 100,100"
+        fill="#292569"
+        class="fill-indigo-900"
+    />
+
+    <polygon
+        points="100,0 190,50 190,150 100,100"
+        fill="#f97316"
+        class="fill-orange-500"
+    />
+
+    <polygon points="85,80 135,100 85,120" fill="white" />
+</svg>
