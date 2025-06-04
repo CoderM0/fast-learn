@@ -18,14 +18,14 @@ export default function Welcome({ auth }) {
         <>
             <Head title="Welcome" />
             <NavBar auth={auth} />
-            <div className="bg-white mt-5">
-                <header className="bg-indigo-700 text-white text-center py-12">
-                    <h1 className="text-4xl font-bold mt-16">Who Are We ?</h1>
+            <div className="bg-[url('/images/2.jpg')] bg-cover bg-no-repeat  ">
+                <header className=" bg-indigo-200 text-white text-center py-12  rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 ">
+                    <h1 className="text-4xl font-bold mt-16">About Us </h1>
                 </header>
 
-                <section className="text-center py-12 px-4">
-                    <h2 className="text-2xl font-bold">Mission And Values</h2>
-                    <p className="mt-4 text-gray-700 max-w-2xl mx-auto">
+                <section className="text-center py-12 px-4 text-indigo-900">
+                    <h2 className="text-2xl font-bold ">Mission And Values</h2>
+                    <p className="mt-4  max-w-2xl mx-auto">
                         Our mission is to provide exceptional educational
                         services with a focus on availability, reliability, and
                         support.
@@ -42,7 +42,7 @@ export default function Welcome({ auth }) {
                     </div>
                 </section>
 
-                <section className="bg-indigo-700 text-white py-12 px-4">
+                <section className=" bg-indigo-200 text-white text-center py-12  rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10">
                     <h2 className="text-2xl font-bold text-center">
                         Our Vision
                     </h2>
@@ -54,13 +54,13 @@ export default function Welcome({ auth }) {
                 </section>
 
                 <section className="text-center py-12 px-4">
-                    <h2 className="text-2xl font-bold">
+                    <h2 className="text-2xl font-bold text-white">
                         Our educating Specialties
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
                         {langs.map((el) => {
                             return (
-                                <div className="p-4 shadow-lg rounded-lg bg-green-100 hover:bg-green-200 transition-colors">
+                                <div className="p-4 shadow-lg rounded-lg bg-indigo-100 hover:bg-indigo-200 transition-colors">
                                     <h3 className="text-xl font-bold">{el}</h3>
                                 </div>
                             );
@@ -76,24 +76,24 @@ export default function Welcome({ auth }) {
                     </a>
                 </section>
 
-                <section className="bg-indigo-700 text-white text-center py-12 px-4">
+                <section className=" bg-indigo-200 text-white text-center py-12  rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10">
                     <h2 className="text-2xl font-bold">Students Reviews</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8 max-w-5xl mx-auto">
-                        <div className="p-4 shadow-lg rounded-lg bg-lorange hover:bg-white hover:text-lightbl transition-colors">
+                        <div className="p-4 shadow-lg rounded-lg bg-orange-800 hover:bg-white hover:text-lightbl transition-colors">
                             <p>
                                 "Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit. Proin sit amet tristique mi."
                             </p>
                             <h3 className="mt-4 font-bold">- Student A</h3>
                         </div>
-                        <div className="p-4 shadow-lg rounded-lg bg-lorange  hover:bg-white hover:text-lightbl transition-colors">
+                        <div className="p-4 shadow-lg rounded-lg bg-orange-800  hover:bg-white hover:text-lightbl transition-colors">
                             <p>
                                 "Nullam ac augue eget diam posuere vehicula.
                                 Vivamus quis nulla ac justo euismod posuere."
                             </p>
                             <h3 className="mt-4 font-bold">- Student B</h3>
                         </div>
-                        <div className="p-4 shadow-lg rounded-lg bg-lorange  hover:bg-white hover:text-lightbl transition-colors">
+                        <div className="p-4 shadow-lg rounded-lg bg-orange-800  hover:bg-white hover:text-lightbl transition-colors">
                             <p>
                                 "Fusce tincidunt, arcu nec vestibulum tincidunt,
                                 eros massa ullamcorper urna."
