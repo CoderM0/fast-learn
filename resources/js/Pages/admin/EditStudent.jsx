@@ -31,7 +31,7 @@ export default function EditStudent({ student }) {
                         src={
                             newimg
                                 ? URL.createObjectURL(newimg)
-                                : `/storage/${student.avatar}`
+                                : `/storage/${student.user.avatar}`
                         }
                         className="w-32 h-32 rounded-full"
                         alt=""

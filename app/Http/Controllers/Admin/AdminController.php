@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Content;
+
 use App\Models\Course;
-use App\Models\Lesson;
-use App\Models\Module;
+
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\Quize;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
@@ -86,7 +84,7 @@ class AdminController extends Controller
         $user = User::find($student->user_id);
         $student->update($validated_student);
         if (request()->file('avatar')) {
-            Storage::disk('public')->delete($student->avatar);
+            Storage::disk('public')->delete($user->avatar);
             $newavatar =  Storage::disk('public')->put('students', request()->file('avatar'));
             $user->avatar = $newavatar;
             $user->save();
@@ -137,7 +135,7 @@ class AdminController extends Controller
         request()->validate(['avatar' => 'sometimes|image']);
         $teacher->update($validated_teacher);
         if (request()->file('avatar')) {
-            Storage::disk('public')->delete($teacher->avatar);
+            Storage::disk('public')->delete($user->avatar);
             $new_avatar = Storage::disk('public')->put('teachers', request()->file('avatar'));
             $user->avatar = $new_avatar;
             $user->save();
