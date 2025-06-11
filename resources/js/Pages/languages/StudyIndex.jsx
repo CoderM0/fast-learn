@@ -25,12 +25,13 @@ export default function StudyIndex({ course, data, isresult }) {
                 </div>
             ) : data.type == "pdf" ? (
                 <div>
-                    <iframe
+                    <embed
                         src={"/storage/" + data.filepath}
                         width="100%"
                         className="bg-red-500"
                         height="600px"
-                    ></iframe>
+                        type="application/pdf"
+                    />
                     <Comment
                         content_id={data.id}
                         comments={data.comments}

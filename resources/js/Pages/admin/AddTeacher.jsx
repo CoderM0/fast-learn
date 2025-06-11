@@ -9,7 +9,7 @@ export default function AddTeacher() {
     const { data, setData, errors, processing, post, reset } = useForm();
     const add_teacher = (e) => {
         e.preventDefault();
-        console.log(data);
+
         post(route("admin.save_teacher"), {
             onSuccess: () => reset(),
         });
