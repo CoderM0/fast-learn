@@ -25,13 +25,18 @@ export default function StudyIndex({ course, data, isresult }) {
                 </div>
             ) : data.type == "pdf" ? (
                 <div>
-                    <embed
-                        src={"/storage/" + data.filepath}
+                    <object
+                        data={"/storage/" + data.filepath}
                         width="100%"
-                        className="bg-red-500"
+                        className="bg-gray-200"
                         height="600px"
-                        type="application/pdf"
-                    />
+                        datatype="application/pdf"
+                    >
+                        <p className="text-2xl text-center py-6 text-red-500 ">
+                            {" "}
+                            sorry! ..this file might be corrupted
+                        </p>
+                    </object>
                     <Comment
                         content_id={data.id}
                         comments={data.comments}
