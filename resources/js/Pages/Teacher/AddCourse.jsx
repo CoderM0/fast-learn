@@ -16,7 +16,7 @@ export default function AddCourse({ teacher }) {
             coursedesc: "",
             lessonTitle: "",
             contentTitle: "",
-            level: "",
+            level: "beginner",
             cover_img: "",
             lessonContent: null,
         });

@@ -6,7 +6,7 @@ export default function TeacherCourses({ teacher, courses }) {
     return (
         <TeacherLayout teacher={teacher}>
             <CustomHead title={"My Courses"} />
-            <div className="flex">
+            <div className="flex flex-wrap">
                 {courses.length == 0 ? (
                     <p className="font-bold text-center my-5">
                         You Dont Have Courses Yet.{" "}

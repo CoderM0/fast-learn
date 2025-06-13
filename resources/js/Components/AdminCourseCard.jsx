@@ -3,6 +3,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export default function AdminCourseCard({ course }) {
     const { delete: destroy, processing } = useForm();
     const deleteCourse = (course_id) => {
+        // console.log(course_id);
         destroy(route(`admin_content.delete_course`, course_id));
     };
     return (
@@ -163,7 +164,8 @@ export default function AdminCourseCard({ course }) {
                                     </Link>
                                     <button
                                         onClick={() => deleteCourse(course.id)}
-                                        className="text-center block flex-1 w-full px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700"
+                                        disabled={processing}
+                                        className="text-center disabled:bg-red-300 block flex-1 w-full px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700"
                                     >
                                         Delete Course
                                     </button>

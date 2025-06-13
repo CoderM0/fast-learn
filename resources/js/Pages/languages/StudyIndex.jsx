@@ -7,8 +7,10 @@ import QuizeHome from "./QuizeHome";
 
 export default function StudyIndex({ course, data, isresult }) {
     const { user } = usePage().props.auth;
+    console.log(user);
+    const { coursePlaylistData } = usePage().props;
     return (
-        <StudyLayout course={course}>
+        <>
             {isresult ? (
                 <QuizeResult data={data} />
             ) : data == "index" ? (
@@ -54,10 +56,13 @@ export default function StudyIndex({ course, data, isresult }) {
             ) : (
                 <QuizeHome
                     quize={data.quize}
-                    course_id={course.id}
+                    course_id={coursePlaylistData.id}
                     submit={user.role == 2}
                 />
             )}
-        </StudyLayout>
+        </>
     );
 }
+StudyIndex.layout = (page) => (
+    <StudyLayout children={page} course={page.props.coursePlaylistData} />
+);

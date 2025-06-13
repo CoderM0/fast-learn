@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminContentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ProfileController;
 
@@ -55,7 +56,10 @@ Route::controller(StudyController::class)->middleware(['auth', 'can:enrolled,cou
     Route::get('courses/{course}/index', 'index')->name('courses.enrolled.index');
     Route::get('courses/{course}/lesson/{content_id}', 'show')->name('courses.enrolled.show');
     Route::get('/{course}/quize/{quize_id}', 'showquize')->name('courses.enrolled.show.quize');
+    Route::delete('/{course}/quize/{quize_id}/reset', 'reset_quize')->name('quize.reset');
 });
+// Route::get('/courses/{course}/lessons/{lesson}/content/{content}', [ContentController::class, 'show'])
+//     ->name('content.show');
 Route::controller(CommentController::class)->middleware(['auth'])->group(function () {
     Route::delete("/comments/{comment}/delete", 'delete_comment')->name("user.comment.delete");
     Route::delete("/replies/{reply}/delete", 'delete_reply')->name("user.reply.delete");

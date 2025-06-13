@@ -44,8 +44,9 @@ class AdminContentController extends Controller
         $module->delete();
         return redirect()->back();
     }
-    public function delete_course(Course $course)
+    public function delete_course($course)
     {
+        $course = Course::findOrFail($course);
         $course->delete();
         return redirect()->back();
     }

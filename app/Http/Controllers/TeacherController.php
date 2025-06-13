@@ -89,7 +89,7 @@ class TeacherController extends Controller
             'lesson_id' => $lesson->id,
         ]);
 
-        return redirect()->route('teacher.dashboard');
+        return redirect()->route('teacher.courses');
     }
 
     public function update_cover($course)
@@ -115,8 +115,9 @@ class TeacherController extends Controller
             return Inertia::render("Teacher/BlockedTeacher");
         }
     }
-    public function delete_course(Course $course)
+    public function delete_course($course)
     {
+        $course = Course::findOrFail($course);
         $course->delete();
         return redirect()->route("teacher.courses");
     }

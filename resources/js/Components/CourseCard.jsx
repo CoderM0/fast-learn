@@ -10,7 +10,7 @@ export default function CourseCard({
     isNotRated,
 }) {
     return (
-        <div className="w-[40%]">
+        <div className="w-[40%] flex-shrink-0">
             <div className="p-5">
                 <div className="max-w-md bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
                     <div className="relative">
