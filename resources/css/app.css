@@ -77,8 +77,3 @@ iframe #toolbar {
     width: 15px;
     background-color: blueviolet;
 }
-.react-pdf__Page {
-    margin-bottom: 20px; /* Add some space below each page */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow */
-    page-break-after: always; /* Useful for printing PDFs from browser */
-}

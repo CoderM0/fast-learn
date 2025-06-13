@@ -1,6 +1,5 @@
 import AudioPlayer from "@/Components/AudioPlayer";
 import Comment from "@/Components/Comment";
-import PDFViewer from "@/Components/PDFViewer";
 import { usePage } from "@inertiajs/react";
 import StudyLayout from "../../Layouts/StudyLayout";
 import QuizeResult from "../Student/QuizeResult";
@@ -8,7 +7,6 @@ import QuizeHome from "./QuizeHome";
 
 export default function StudyIndex({ course, data, isresult }) {
     const { user } = usePage().props.auth;
-
     return (
         <StudyLayout course={course}>
             {isresult ? (
@@ -27,21 +25,18 @@ export default function StudyIndex({ course, data, isresult }) {
                 </div>
             ) : data.type == "pdf" ? (
                 <div>
-                    {/* <object
+                    <object
                         data={"/storage/" + data.filepath}
                         width="100%"
                         className="bg-gray-200"
                         height="600px"
+                        datatype="application/pdf"
                     >
                         <p className="text-2xl text-center py-6 text-red-500 ">
                             {" "}
                             sorry! ..this file might be corrupted
                         </p>
-                                </object> */}
-                    <PDFViewer
-                        filepath={"/storage/" + data.filepath}
-                        file_title={data.title}
-                    />
+                    </object>
                     <Comment
                         content_id={data.id}
                         comments={data.comments}
