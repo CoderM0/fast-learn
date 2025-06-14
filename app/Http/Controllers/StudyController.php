@@ -68,7 +68,7 @@ class StudyController extends Controller
         }
         return Inertia::render('languages/StudyIndex', ['data' => $data, 'isresult' => $isResult, 'student' => $user]);
     }
-    public function solvequize($course, $quize_id,)
+    public function solvequize($course, $quize_id)
     {
         $quize = Quize::with(['questions', 'questions.options'])->findOrFail($quize_id);
         $score = 0;
