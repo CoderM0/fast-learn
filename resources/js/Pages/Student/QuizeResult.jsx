@@ -1,13 +1,14 @@
 import DangerButton from "@/Components/DangerButton";
 import InputLabel from "@/Components/InputLabel";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function QuizeResult({ data }) {
-    console.log("wat", data);
+    const { coursePlaylistData } = usePage().props;
+
     const { delete: destroy, processing } = useForm();
     const resetquize = () => {
-        destroy(route("quize.reset", [1, data.quize.id]));
+        destroy(route("quize.reset", [coursePlaylistData.id, data.quize.id]));
     };
     return (
         <div>

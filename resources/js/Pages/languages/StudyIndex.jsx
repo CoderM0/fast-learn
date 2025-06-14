@@ -5,7 +5,7 @@ import StudyLayout from "../../Layouts/StudyLayout";
 import QuizeResult from "../Student/QuizeResult";
 import QuizeHome from "./QuizeHome";
 
-export default function StudyIndex({ course, data, isresult }) {
+export default function StudyIndex({ data, isresult }) {
     const { user } = usePage().props.auth;
     console.log(user);
     const { coursePlaylistData } = usePage().props;

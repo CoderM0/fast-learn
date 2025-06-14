@@ -19,9 +19,9 @@ class CoursesController extends Controller
     {
         return Inertia::render('languages/Home', ['course' => Course::with(['modules.lessons.contents', 'modules.quize', 'modules.quize.questions'])->findOrFail($id)]);
     }
-    public function enroll(Course $course)
+    public function enroll($course)
     {
-
+        $course = Course::find($course);
         $student = Auth::user()->student;
         $course->students()->attach($student, [
             'created_at' => Carbon::now(),

@@ -18,29 +18,31 @@ class StudyController extends Controller
 
         // return redirect()->route("content.show", [$course->id, $course->modules[0]->lessons[0]->id, $course->modules[0]->lessons[0]->contents[0]->id]);
         $data = "index";
-        if (Auth::user()->role == 1) {
-            $user = Auth::user()->teacher;
-        } else if (Auth::user()->role == 2) {
-            $user = Auth::user()->student;
-        }
-        return Inertia::render('languages/StudyIndex', ['data' => $data, 'student' => $user]);
+        // if (Auth::user()->role == 1) {
+        //     $user = Auth::user()->teacher;
+        // } else if (Auth::user()->role == 2) {
+        //     $user = Auth::user()->student;
+        // }
+        return Inertia::render('languages/StudyIndex', ['data' => $data]);
     }
     public function show($course, $content_id)
     {
-        if (Auth::user()->role == 1) {
-            $user = Auth::user()->teacher;
-        } else if (Auth::user()->role == 2) {
-            $user = Auth::user()->student;
-        }
-        $course = Course::with(['modules', 'modules.lessons', 'modules.lessons.contents', 'modules.quize', 'modules.quize.questions', 'modules.quize.questions.options'])->findOrFail($course);
+        // if (Auth::user()->role == 1) {
+        //     $user = Auth::user()->teacher;
+        // } else if (Auth::user()->role == 2) {
+        //     $user = Auth::user()->student;
+        // }
+
         $data = Content::with(['comments', 'comments.replies', 'comments.user', 'comments.replies.user'])->findorFail($content_id);
 
 
-        return Inertia::render('languages/StudyIndex', ['data' => $data, 'isresult' => false, 'student' => $user]);
+        return Inertia::render('languages/StudyIndex', ['data' => $data, 'isresult' => false]);
     }
     public function reset_quize($course, $quize_id)
     {
+
         $quize = Quize::find($quize_id);
+
         $quize->students()->detach(Auth::user()->student);
         return redirect()->back();
     }
@@ -84,10 +86,10 @@ class StudyController extends Controller
 
         return redirect()->back();
     }
-    public function unenroll(Course $course)
+    public function unenroll($course)
     {
 
-
+        $course = Course::find($course);
         $student = Auth::user()->student;
         $course->students()->detach($student);
         return redirect()->back();
