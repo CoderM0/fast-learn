@@ -12,7 +12,7 @@ export default function QuestionField({
         <div key={op.id} className="w-full px-2">
             <InputLabel
                 htmlFor={op.id}
-                className={`text-white w-full block mx-2 py-2 rounded-lg  text-center ${
+                className={`text-white cursor-pointer w-full block mx-2 py-2 rounded-lg  text-center ${
                     Object.values(data).includes(`op-${op.id}`)
                         ? "bg-blue-500"
                         : "bg-gray-300"

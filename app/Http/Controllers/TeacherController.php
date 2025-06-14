@@ -132,8 +132,9 @@ class TeacherController extends Controller
         ]);
         return redirect()->back();
     }
-    public function delete_module(Module $module)
+    public function delete_module($module)
     {
+        $module = Module::find($module);
         $module->delete();
         return redirect()->back();
     }
@@ -254,8 +255,9 @@ class TeacherController extends Controller
         return Inertia::render("Teacher/ViewStudents", ['courses' => $courses]);
     }
 
-    public function unenroll_student(Course $course, Student $student)
+    public function unenroll_student($course, Student $student)
     {
+        $course = Course::find($course);
         $course->students()->detach($student);
         return redirect()->back();
     }
