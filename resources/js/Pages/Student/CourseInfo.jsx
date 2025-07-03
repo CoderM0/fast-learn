@@ -5,6 +5,7 @@ import { Link } from "@inertiajs/react";
 import { LuCircleArrowOutUpRight } from "react-icons/lu";
 
 export default function CourseInfo({ student, course }) {
+    console.log(student);
     const isuser = course.students.find((el) => {
         return el.id == student.id;
     });

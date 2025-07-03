@@ -52,93 +52,97 @@ Route::get('/', function () {
 
     ]);
 });
-Route::controller(StudyController::class)->middleware(['auth', 'can:enrolled,course'])->group(function () {
-    Route::get('courses/{course}/index', 'index')->name('courses.enrolled.index');
-    Route::get('courses/{course}/lesson/{content_id}', 'show')->name('courses.enrolled.show');
-    Route::get('/{course}/quize/{quize_id}', 'showquize')->name('courses.enrolled.show.quize');
-    Route::delete('/{course}/quize/{quize_id}/reset', 'reset_quize')->name('quize.reset');
-});
-// Route::get('/courses/{course}/lessons/{lesson}/content/{content}', [ContentController::class, 'show'])
-//     ->name('content.show');
-Route::controller(CommentController::class)->middleware(['auth'])->group(function () {
-    Route::delete("/comments/{comment}/delete", 'delete_comment')->name("user.comment.delete");
-    Route::delete("/replies/{reply}/delete", 'delete_reply')->name("user.reply.delete");
+Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::post('/{content_id}/add-comment', 'add_comment')->name('courses.add_comment');
-    Route::post('/{comment_id}/add-reply', 'add_reply')->name('courses.add_reply');
-});
-Route::controller(CoursesController::class)->prefix('courses')->name('courses.')->middleware(['auth', 'rolemanager:student'])->group(function () {
 
-    Route::get('/', 'index')->name('index');
-    Route::get('/{id}', 'show')->name('show');
-    Route::post("/addrate/{course_id}", 'add_rate')->name("addrate");
-    Route::post('/{id}', 'enroll')->name('enroll');
 
-    Route::controller(StudyController::class)->prefix('enrolled')->middleware(['can:enrolled,course'])->group(function () {
-        // Route::get('/{course}/index', 'index')->name('enrolled.index');
-        // Route::get('/{course}/lesson/{content_id}', 'show')->name('enrolled.show');
-        // Route::get('/{course}/quize/{quize_id}', 'showquize')->name('enrolled.show.quize');
-        Route::post('/{course}/unenroll', 'unenroll')->name('enrolled.unenroll');
-
-        Route::post('/quize/{course}/{quize_id}', 'solvequize')->name('quize.solve');
+    Route::controller(StudyController::class)->middleware(['auth', 'can:enrolled,course'])->group(function () {
+        Route::get('courses/{course}/index', 'index')->name('courses.enrolled.index');
+        Route::get('courses/{course}/lesson/{content_id}', 'show')->name('courses.enrolled.show');
+        Route::get('/{course}/quize/{quize_id}', 'showquize')->name('courses.enrolled.show.quize');
+        Route::delete('/{course}/quize/{quize_id}/reset', 'reset_quize')->name('quize.reset');
     });
-});
+    // Route::get('/courses/{course}/lessons/{lesson}/content/{content}', [ContentController::class, 'show'])
+    //     ->name('content.show');
+    Route::controller(CommentController::class)->middleware(['auth'])->group(function () {
+        Route::delete("/comments/{comment}/delete", 'delete_comment')->name("user.comment.delete");
+        Route::delete("/replies/{reply}/delete", 'delete_reply')->name("user.reply.delete");
 
+        Route::post('/{content_id}/add-comment', 'add_comment')->name('courses.add_comment');
+        Route::post('/{comment_id}/add-reply', 'add_reply')->name('courses.add_reply');
+    });
+    Route::controller(CoursesController::class)->prefix('courses')->name('courses.')->middleware(['auth', 'rolemanager:student'])->group(function () {
 
-Route::middleware(['auth', 'rolemanager:student'])->prefix('/student')->group(function () {
-    Route::controller(StudentController::class)->group(function () {
-        Route::get('/dashboard', 'index')->name('student.dashboard');
-        Route::get('/courses', 'view_all_courses')->name('student.all_courses');
-        Route::get('/courses/{course_id}', 'view_course')->name('student.show_course');
-        Route::get("/students/view", 'view_profile')->name('student.show_profile');
-        Route::get("/students/profile/edit", 'edit_student_personal')->name('student.edit_personal');
-        Route::post("/students/profile/update", 'update_student_personal')->name('student.update_personal');
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'show')->name('show');
+        Route::post("/addrate/{course_id}", 'add_rate')->name("addrate");
+        Route::post('/{id}', 'enroll')->name('enroll');
 
-        Route::controller(CoursesController::class)->group(function () {
-            Route::post("courses/{course}/enroll", 'enroll')->name("student.course.enroll");
+        Route::controller(StudyController::class)->prefix('enrolled')->middleware(['can:enrolled,course'])->group(function () {
+            // Route::get('/{course}/index', 'index')->name('enrolled.index');
+            // Route::get('/{course}/lesson/{content_id}', 'show')->name('enrolled.show');
+            // Route::get('/{course}/quize/{quize_id}', 'showquize')->name('enrolled.show.quize');
+            Route::post('/{course}/unenroll', 'unenroll')->name('enrolled.unenroll');
+
+            Route::post('/quize/{course}/{quize_id}', 'solvequize')->name('quize.solve');
         });
     });
-});
-Route::middleware('auth')->group(function () {
-    Route::get("/users/{user}/profile", [ProfileController::class, 'show_profile'])->name("user.show_profile");
-});
-Route::middleware(['auth', 'rolemanager:teacher'])->prefix('/teacher')->group(function () {
-    Route::controller(TeacherController::class)->group(function () {
-        Route::get('/dashboard', 'index')->name('teacher.dashboard');
-        Route::get('/courses', 'courses')->name('teacher.courses');
-        Route::get('/profile/view', 'view_profile')->name('teacher.view_profile');
-        Route::get('/profile/personal/edit', 'edit_personal_info')->name('teacher.profile.edit_personal');
-        Route::post('/profile/personal/update', 'update_personal_info')->name('teacher.profile.update_personal');
-        Route::delete('/courses/{course}/delete', 'delete_course')->name('teacher.delete_course');
-        Route::get('/courses/add', 'add_course')->name('teacher.add_course');
-        Route::post('/courses/save', 'save_course')->name('teacher.save_course');
-        Route::post('/courses/{course_id}/cover/update', 'update_cover')->name('teacher.update_cover');
-        Route::get('/courses/{course_id}/edit', 'edit_course')->name('teacher.edit_course');
-        Route::post('/courses/{course_id}/add-module', 'add_module')->name('teacher.course.add_module');
-        Route::delete('/modules/{module}/delete', 'delete_module')->name('teacher.delete_module');
-        Route::delete('/contents/{content}/delete', 'delete_content')->name('teacher.content.delete');
-        Route::delete('/lesson/{lesson_id}/delete', 'delete_lesson')->name('teacher.lesson.delete');
-        Route::get('/modules/{module_id}/edit', 'edit_module')->name('teacher.modules.edit');
-        Route::post('/modules/{module_id}/add-lesson', 'add_lesson')->name('teacher.add_lesson');
-        Route::post('/lessons/{lesson_id}/add-content', 'add_content')->name('teacher.add_content');
-        Route::post('/modules/{module_id}/add-quize', 'add_quize')->name('teacher.add_quize');
-        Route::get('/modules/{quize_id}/add-question', 'add_question')->name('teacher.add_question.create');
-        Route::post('/modules/{quize_id}/save-question', 'save_question')->name('teacher.add_question.store');
-        Route::get('/students', 'view_students')->name('teacher.get_students');
-        Route::post('courses/{course}/students/{student}/remove', 'unenroll_student')->name('teacher.remove_students');
+
+
+    Route::middleware(['auth', 'rolemanager:student'])->prefix('/student')->group(function () {
+        Route::controller(StudentController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('student.dashboard');
+            Route::get('/courses', 'view_all_courses')->name('student.all_courses');
+            Route::get('/courses/{course_id}', 'view_course')->name('student.show_course');
+            Route::get("/students/view", 'view_profile')->name('student.show_profile');
+            Route::get("/students/profile/edit", 'edit_student_personal')->name('student.edit_personal');
+            Route::post("/students/profile/update", 'update_student_personal')->name('student.update_personal');
+
+            Route::controller(CoursesController::class)->group(function () {
+                Route::post("courses/{course}/enroll", 'enroll')->name("student.course.enroll");
+            });
+        });
+    });
+    Route::middleware('auth')->group(function () {
+        Route::get("/users/{user}/profile", [ProfileController::class, 'show_profile'])->name("user.show_profile");
+    });
+    Route::middleware(['auth', 'rolemanager:teacher'])->prefix('/teacher')->group(function () {
+        Route::controller(TeacherController::class)->group(function () {
+            Route::get('/dashboard', 'index')->name('teacher.dashboard');
+            Route::get('/courses', 'courses')->name('teacher.courses');
+            Route::get('/profile/view', 'view_profile')->name('teacher.view_profile');
+            Route::get('/profile/personal/edit', 'edit_personal_info')->name('teacher.profile.edit_personal');
+            Route::post('/profile/personal/update', 'update_personal_info')->name('teacher.profile.update_personal');
+            Route::delete('/courses/{course}/delete', 'delete_course')->name('teacher.delete_course');
+            Route::get('/courses/add', 'add_course')->name('teacher.add_course');
+            Route::post('/courses/save', 'save_course')->name('teacher.save_course');
+            Route::post('/courses/{course_id}/cover/update', 'update_cover')->name('teacher.update_cover');
+            Route::get('/courses/{course_id}/edit', 'edit_course')->name('teacher.edit_course');
+            Route::post('/courses/{course_id}/add-module', 'add_module')->name('teacher.course.add_module');
+            Route::delete('/modules/{module}/delete', 'delete_module')->name('teacher.delete_module');
+            Route::delete('/contents/{content}/delete', 'delete_content')->name('teacher.content.delete');
+            Route::delete('/lesson/{lesson_id}/delete', 'delete_lesson')->name('teacher.lesson.delete');
+            Route::get('/modules/{module_id}/edit', 'edit_module')->name('teacher.modules.edit');
+            Route::post('/modules/{module_id}/add-lesson', 'add_lesson')->name('teacher.add_lesson');
+            Route::post('/lessons/{lesson_id}/add-content', 'add_content')->name('teacher.add_content');
+            Route::post('/modules/{module_id}/add-quize', 'add_quize')->name('teacher.add_quize');
+            Route::get('/modules/{quize_id}/add-question', 'add_question')->name('teacher.add_question.create');
+            Route::post('/modules/{quize_id}/save-question', 'save_question')->name('teacher.add_question.store');
+            Route::get('/students', 'view_students')->name('teacher.get_students');
+            Route::post('courses/{course}/students/{student}/remove', 'unenroll_student')->name('teacher.remove_students');
+        });
+    });
+
+
+
+    Route::get('/dashboard', function () {
+        return redirect()->route("student.dashboard");
+    })->middleware(['auth', 'verified', 'rolemanager:user'])->name('dashboard');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 });
-
-
-
-Route::get('/dashboard', function () {
-    return redirect()->route("student.dashboard");
-})->middleware(['auth', 'verified', 'rolemanager:user'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 require __DIR__ . '/auth.php';

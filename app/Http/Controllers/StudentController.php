@@ -31,7 +31,7 @@ class StudentController extends Controller
     }
     public function view_course($course_id)
     {
-        return Inertia::render("Student/CourseInfo", ['course' => Course::with(["teacher", "teacher.user"])->find($course_id)]);
+        return Inertia::render("Student/CourseInfo", ['student' => Auth::user()->student, 'course' => Course::with(["teacher", "teacher.user"])->find($course_id)]);
     }
     public function view_profile()
     {
