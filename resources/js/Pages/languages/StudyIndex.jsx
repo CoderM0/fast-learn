@@ -3,7 +3,7 @@ import Comment from "@/Components/Comment";
 import { usePage } from "@inertiajs/react";
 import StudyLayout from "../../Layouts/StudyLayout";
 import QuizeResult from "../Student/QuizeResult";
-import QuizeHome from "./QuizeHome";
+import QuizeForm from "./QuizeForm";
 
 export default function StudyIndex({ data, isresult }) {
     const { user } = usePage().props.auth;
@@ -54,7 +54,7 @@ export default function StudyIndex({ data, isresult }) {
                     <Comment comments={data.comments} content_id={data.id} />
                 </div>
             ) : (
-                <QuizeHome
+                <QuizeForm
                     quize={data.quize}
                     course_id={coursePlaylistData.id}
                     submit={user.role == 2}

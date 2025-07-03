@@ -70,8 +70,8 @@ export default function AddQuize({ quize, teacher }) {
                         className="mb-1"
                     />
                     <InputLabel>Add Options</InputLabel>
-                    <div className="flex justify-between">
-                        <div className="flex flex-col items-center">
+                    <div className="flex flex-col gap-3">
+                        <div className="flex gap-2 items-center">
                             <TextInput
                                 name="opt_one"
                                 value={data.opt_one}
@@ -94,9 +94,9 @@ export default function AddQuize({ quize, teacher }) {
                                 value="one"
                                 ref={optone}
                                 onChange={(e) => handleRadio(e.target.value)}
-                            ></TextInput>
+                            />
                         </div>
-                        <div className="flex flex-col items-center">
+                        <div className="flex gap-2 items-center">
                             <TextInput
                                 name="opt_two"
                                 value={data.opt_two}
@@ -121,7 +121,7 @@ export default function AddQuize({ quize, teacher }) {
                                 onChange={(e) => handleRadio(e.target.value)}
                             ></TextInput>
                         </div>
-                        <div className="flex flex-col items-center">
+                        <div className="flex gap-2 items-center">
                             <TextInput
                                 name="opt_three"
                                 value={data.opt_three}
@@ -146,7 +146,7 @@ export default function AddQuize({ quize, teacher }) {
                                 onChange={(e) => handleRadio(e.target.value)}
                             ></TextInput>
                         </div>
-                        <div className="flex flex-col items-center">
+                        <div className="flex gap-2 items-center">
                             <TextInput
                                 name="opt_four"
                                 value={data.opt_four}
@@ -181,7 +181,7 @@ export default function AddQuize({ quize, teacher }) {
                         return (
                             <h1
                                 key={quest.id}
-                                className="p-2 rounded-xl bg-blue-100 my-2 text-black font-bold"
+                                className="p-2 rounded-xl bg-gray-100 my-2 text-indigo-900 font-bold"
                             >
                                 <span>{++index + "."}</span>{" "}
                                 {quest.question_text}

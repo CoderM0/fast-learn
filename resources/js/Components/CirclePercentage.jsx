@@ -35,8 +35,10 @@ export default function CirclePercentage({ score, maxDegree }) {
 
                     <circle
                         className={`${
-                            percentage >= 50
-                                ? " text-blue-500 "
+                            percentage == 50
+                                ? "text-blue-500"
+                                : percentage > 50
+                                ? " text-green-500 "
                                 : " text-red-500 "
                         }  transition-all duration-1000 ease-out`}
                         strokeWidth="10"
@@ -53,7 +55,11 @@ export default function CirclePercentage({ score, maxDegree }) {
 
                 <div
                     className={`absolute text-2xl font-bold ${
-                        percentage >= 50 ? "text-blue-800 " : "text-red-500 "
+                        percentage == 50
+                            ? "text-blue-800 "
+                            : percentage > 50
+                            ? "text-green-500"
+                            : "text-red-500 "
                     } `}
                 >
                     {Math.round(percentage)}%

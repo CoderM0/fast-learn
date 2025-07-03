@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Content;
 use App\Models\Course;
 use App\Models\Quize;
+use App\Models\QuizeStudent;
 use App\Models\Student;
+use App\Models\StudentAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Inertia\Inertia;
 
 class StudyController extends Controller
@@ -60,7 +63,11 @@ class StudyController extends Controller
             $user = Auth::user()->student;
             if (Auth::user()->student->quizes->contains($quize->id)) {
                 $isResult = true;
-                $data = ['quize' => $quize, 'score' => Auth::user()->student->quizes()->find($quize_id)->pivot->score];
+                // $quize_student=QuizeStudent::where("student_id",Auth::user()->student->id)->where("quize_id",$quize_id)->first();
+                $quize_student = QuizeStudent::where('student_id', Auth::user()->student->id)->where("quize_id", $quize_id)->first();
+
+                $stuAnswers = StudentAnswer::where('quize_student_id', $quize_student->id)->get()->keyBy("question_id");
+                $data = ['quize' => $quize, 'score' => $quize_student->score, 'stuanswers' => $stuAnswers];
             } else {
                 $isResult = false;
                 $data = ['quize' => $quize];
@@ -70,20 +77,42 @@ class StudyController extends Controller
     }
     public function solvequize($course, $quize_id)
     {
-        $quize = Quize::with(['questions', 'questions.options'])->findOrFail($quize_id);
+        // $quize = Quize::with(['questions', 'questions.options'])->findOrFail($quize_id);
         $score = 0;
-        $content = $quize->questions;
-        foreach ($content as  $quest) {
+        foreach (request()->all() as  $quest) {
 
-            $datarec = $quest->id;
-            if (request()->$datarec) {
+
+            if ($quest) {
                 $score = $score + 1;
             };
         }
-        $quize->students()->attach(Auth::user()->student, ['score' => $score]);
+        // $quize->students()->attach(Auth::user()->student, ['score' => $score]);
+        $quize_student =  QuizeStudent::create([
+            'student_id' => Auth::user()->student->id,
+            'quize_id' => $quize_id,
+            'score' => $score,
+        ]);
+        $studentAnswers = request()->all();
+
+        $pattern = '/^q(\d+)-o(\d+)$/';
+
+        foreach ($studentAnswers as $key => $isCorrectValue) {
+            if (preg_match($pattern, $key, $matches)) {
 
 
+                $questionId = (int)$matches[1];
+                $optionId = (int)$matches[2];
+                $isCorrect = (int)$isCorrectValue;
 
+                StudentAnswer::create([
+                    'quize_student_id' => $quize_student->id,
+                    'question_id' => $questionId,
+                    'option_id' => $optionId,
+                    'is_correct_answer' => $isCorrect,
+
+                ]);
+            }
+        }
         return redirect()->back();
     }
     public function unenroll($course)
