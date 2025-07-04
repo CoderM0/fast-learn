@@ -7,6 +7,7 @@ export default function QuizeForm({ quize, course_id, submit }) {
     // const [answers, setAnswers] = useState({});
     const { data, setData, post, reset, processing } = useForm();
     // console.log("keys", Object.keys(data).length == quize.questions.length);
+    console.log("keys", Object.keys(data));
     // console.log(data);
     const submitanswers = (e) => {
         if (Object.keys(data).length == quize.questions.length) {
@@ -53,8 +54,8 @@ export default function QuizeForm({ quize, course_id, submit }) {
                                                     className="hidden peer"
                                                     onChange={(e) => {
                                                         setData(
-                                                            `q${quest.id}-o${op.id}`,
-                                                            op.is_correct
+                                                            `q${quest.id}`,
+                                                            `o${op.id}-is_cor-${op.is_correct}`
                                                         );
                                                     }}
                                                 />

@@ -79,13 +79,7 @@ class StudyController extends Controller
     {
         // $quize = Quize::with(['questions', 'questions.options'])->findOrFail($quize_id);
         $score = 0;
-        foreach (request()->all() as  $quest) {
 
-
-            if ($quest) {
-                $score = $score + 1;
-            };
-        }
         // $quize->students()->attach(Auth::user()->student, ['score' => $score]);
         $quize_student =  QuizeStudent::create([
             'student_id' => Auth::user()->student->id,
@@ -94,25 +88,34 @@ class StudyController extends Controller
         ]);
         $studentAnswers = request()->all();
 
-        $pattern = '/^q(\d+)-o(\d+)$/';
+        $pattern = '/^q(\d+)$/';
+        $valuePattern = '/^o(\d+)-is_cor-(\d+)$/';
 
-        foreach ($studentAnswers as $key => $isCorrectValue) {
-            if (preg_match($pattern, $key, $matches)) {
+        foreach ($studentAnswers as $key => $value) {
+            if (preg_match($pattern, $key, $keyMatches)) {
 
 
-                $questionId = (int)$matches[1];
-                $optionId = (int)$matches[2];
-                $isCorrect = (int)$isCorrectValue;
+                $questionId = (int)$keyMatches[1];
+                if (preg_match($valuePattern, $value, $valueMatches)) {
+                    $optionId = (int)$valueMatches[1];
+                    $isCorrect = (int)$valueMatches[2];
 
-                StudentAnswer::create([
-                    'quize_student_id' => $quize_student->id,
-                    'question_id' => $questionId,
-                    'option_id' => $optionId,
-                    'is_correct_answer' => $isCorrect,
 
-                ]);
+                    if ($isCorrect == 1) {
+                        $score++;
+                    }
+
+                    StudentAnswer::create([
+                        'quize_student_id' => $quize_student->id,
+                        'question_id' => $questionId,
+                        'option_id' => $optionId,
+                        'is_correct_answer' => $isCorrect,
+
+                    ]);
+                }
             }
         }
+        $quize_student->update(['score' => $score]);
         return redirect()->back();
     }
     public function unenroll($course)

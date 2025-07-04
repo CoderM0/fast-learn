@@ -3,6 +3,8 @@ import DangerButton from "@/Components/DangerButton";
 import InputLabel from "@/Components/InputLabel";
 import { useForm, usePage } from "@inertiajs/react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaCheckCircle } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
 
 export default function QuizeResult({ data }) {
     const { coursePlaylistData } = usePage().props;
@@ -74,12 +76,36 @@ export default function QuizeResult({ data }) {
                                                                       quest.id
                                                                   ]
                                                                       .is_correct_answer
-                                                                    ? " bg-green-500 text-white "
-                                                                    : " bg-red-500 text-white"
+                                                                    ? "border border-green-500 bg-green-100 "
+                                                                    : " border border-red-500 bg-red-100"
                                                                 : ""
                                                         }`}
                                                     >
-                                                        {" "}
+                                                        {data.stuanswers[
+                                                            quest.id
+                                                        ]?.option_id ==
+                                                        op.id ? (
+                                                            data.stuanswers[
+                                                                quest.id
+                                                            ]
+                                                                .is_correct_answer ? (
+                                                                <FaCheckCircle
+                                                                    color="green"
+                                                                    size={
+                                                                        "1.2rem"
+                                                                    }
+                                                                />
+                                                            ) : (
+                                                                <MdCancel
+                                                                    color="red"
+                                                                    size={
+                                                                        "1.2rem"
+                                                                    }
+                                                                />
+                                                            )
+                                                        ) : (
+                                                            ""
+                                                        )}
                                                         <input
                                                             type="radio"
                                                             name={`q-${quest.id}`}
