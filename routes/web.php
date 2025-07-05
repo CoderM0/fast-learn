@@ -52,7 +52,7 @@ Route::get('/', function () {
 
     ]);
 });
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['verified'])->group(function () {
 
 
 
