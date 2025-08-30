@@ -60,7 +60,12 @@ export default function StudentsTable({ students }) {
                                                     key={course.id}
                                                     className="bg-green-500 text-white py-1 px-2 rounded-full text-xs"
                                                 >
-                                                    {course.name}
+                                                    {course.name.length > 12
+                                                        ? course.name.slice(
+                                                              0,
+                                                              12
+                                                          ) + "..."
+                                                        : course.name}
                                                 </span>
                                             );
                                         })}
